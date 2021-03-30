@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Router JS</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      a {
+        text-decoration: none;
+        color: peru;
+      }
+      main {
+        padding: 20px;
+        font-size: 20px;
+      }
+      .nav {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f0;
+        height: 60px;
+      }
+      .nav li a {
+        height: 100%;
+        padding: 20px 25px;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: 0.3s;
+        color: #777;
+      }
+      .nav li a:hover {
+        background: peru;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <ul class="nav">
+        <li>
+          <a href="#" data-router="get-started">Get Started</a>
+        </li>
+        <li>
+          <a href="#" data-router="about">About</a>
+        </li>
+        <li>
+          <a href="#" data-router="blog">Blog</a>
+        </li>
+        <li>
+          <a href="#" data-router="contact">Contact</a>
+        </li>
+        <li>
+          <a href="#" data-router="developer">Developer</a>
+        </li>
+        <li>
+          <a href="#" data-router="nowhere">No Where</a>
+        </li>
+      </ul>
+      <main>
+        <section data-screen="get-started" style="display: none">
+          Get Started with Router.js
+        </section>
+        <section data-screen="about" style="display: none">
+          About Page <br />
+          <a class="nav-link" href="#" data-router="/about/developer/"
+            >Sub About</a
+          >
+        </section>
+        <section data-screen="blog" style="display: none">Blog Page</section>
+        <section data-screen="contact" style="display: none">
+          Contact Page
+        </section>
+        <section data-screen="developer" style="display: none">
+          Developed by Jafran Hasan
+        </section>
+        <section data-screen="about/developer" style="display: none">
+          About Jafran Hasan
+        </section>
+        <section data-screen="error" style="display: none">Error Page</section>
+      </main>
+    </div>
+
+    <script src="./Router.min.js"></script>
+    <script src="./Cookies.min.js"></script>
+    <script>
+      Router.init({
+        screen: {
+          home: "home",
+          error: "error",
+        },
+      });
+
+      //   events
+      window.addEventListener("Router.before", (event) => {
+        console.log(
+          `Attempting route from ${event.detail.from} to ${event.detail.to}`
+        );
+        console.log(`States`, event.detail.states);
+      });
+
+      window.addEventListener("Router.after", (event) => {
+        console.log(
+          `Successful routing from ${event.detail.from} to ${event.detail.to}`
+        );
+      });
+
+      window.addEventListener("Router.error", (event) => {
+        console.log(
+          `Error triggered. Attempted routing from ${event.detail.from} to ${event.detail.to}`
+        );
+      });
+    </script>
+  </body>
+</html>
